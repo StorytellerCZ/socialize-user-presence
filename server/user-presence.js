@@ -6,22 +6,12 @@ import { ServerPresence } from 'meteor/socialize:server-presence';
 
 import { UserSessions } from '../common/common.js';
 
-if (UserSessions.createIndexAsync) {
-  try {
+try {
     UserSessions.createIndexAsync({ userId: 1 });
     UserSessions.createIndexAsync({ serverId: 1 });
     UserSessions.createIndexAsync({ sessionId: 1 });
-  } catch (e) {
+} catch (e) {
     throw new Meteor.Error('Failed to initialize indexes for socialize:user-presence');
-  }
-} else if (UserSessions.createIndex) {
-  UserSessions.createIndex({ userId: 1 });
-  UserSessions.createIndex({ serverId: 1 });
-  UserSessions.createIndex({ sessionId: 1 });
-} else {
-  UserSessions._ensureIndex({ userId: 1 });
-  UserSessions._ensureIndex({ serverId: 1 });
-  UserSessions._ensureIndex({ sessionId: 1 });
 }
 
 const cleanupFunctions = [];
