@@ -90,7 +90,7 @@ UserPresence.onUserOffline = (userOfflineFunction) => {
 };
 
 const userOffline = (userId, connection) => {
-    for (const cleanupFunction of userOfflineFunctions) {
+    for (const offlineFunction of userOfflineFunctions) {
         offlineFunction(userId, connection);
     }
 };
