@@ -122,14 +122,14 @@ export const determineStatus = async (userId, connection) => {
     }
 };
 
-export const userConnected = (sessionId, userId, serverId, connection) => {
-    UserSessions.insertAsync({ serverId, userId, _id: sessionId, status: 2 });
-    determineStatus(userId, connection);
+export const userConnected = async (sessionId, userId, serverId, connection) => {
+    await UserSessions.insertAsync({ serverId, userId, _id: sessionId, status: 2 });
+    await determineStatus(userId, connection);
 };
 
-export const userDisconnected = (sessionId, userId, connection) => {
-    UserSessions.removeAsync(sessionId);
-    determineStatus(userId, connection);
+export const userDisconnected = async (sessionId, userId, connection) => {
+    await UserSessions.removeAsync(sessionId);
+    await determineStatus(userId, connection);
 };
 
 
